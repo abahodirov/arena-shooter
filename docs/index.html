@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena Shooter</title>
+<meta name="description" content="A 3D wave-survival first-person shooter built in Python with the Ursina engine. Three arenas, three weapons, endless waves.">
+<meta property="og:title" content="Arena Shooter">
+<meta property="og:description" content="A 3D wave-survival FPS built in Python with the Ursina engine. Free and open source.">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/crosshair.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#11161f; --panel:#1d2433; --panel2:#232c3e;
+    --line:#2d3850; --ink:#eef2f9; --mute:#9aa7bd;
+    --amber:#ffb347; --yellow:#ffcc00; --blue:#8fd3ff; --green:#6fd35a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Lilita One",Impact,sans-serif; font-weight:400; letter-spacing:.02em; line-height:1.08; margin:0}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.92em; background:#0c1016; border:1px solid var(--line); border-radius:5px; padding:2px 6px}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 16px}
+
+  /* ---------- hero ---------- */
+  header{
+    position:relative; overflow:hidden; text-align:center;
+    padding:84px 0 64px;
+    background:
+      radial-gradient(900px 420px at 50% -10%, rgba(255,179,71,.20), transparent 70%),
+      radial-gradient(700px 380px at 12% 110%, rgba(143,211,255,.14), transparent 70%),
+      linear-gradient(180deg,#0d1118,var(--bg));
+    border-bottom:1px solid var(--line);
+  }
+  header::after{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.35;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 75%);
+    mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 75%);
+  }
+  header .wrap{position:relative; z-index:1}
+  .tag{
+    display:inline-block; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--amber); border:1px solid rgba(255,179,71,.35); background:rgba(255,179,71,.08);
+    padding:6px 14px; border-radius:999px; margin-bottom:22px;
+  }
+  h1{
+    font-size:clamp(52px,12vw,116px);
+    background:linear-gradient(180deg,#fff,#ffd79a 70%,#ffb347);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{max-width:620px; margin:20px auto 0; color:var(--mute); font-size:clamp(16px,2.4vw,19px)}
+  .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+    font-weight:600; font-size:16px; padding:14px 26px; border-radius:11px;
+    border:1px solid transparent; transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(180deg,var(--yellow),var(--amber)); color:#2a1c00; box-shadow:0 8px 24px rgba(255,179,71,.28)}
+  .btn-primary:hover{box-shadow:0 12px 30px rgba(255,179,71,.4)}
+  .btn-ghost{background:var(--panel2); color:var(--ink); border-color:var(--line)}
+  .btn-ghost:hover{background:#2a3449}
+  .meta{margin-top:18px; font-size:13.5px; color:var(--mute)}
+  .meta b{color:var(--ink); font-weight:600}
+
+  /* ---------- notice ---------- */
+  .notice{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--blue);
+    border-radius:12px; padding:16px 20px; margin:40px 0; font-size:15px; color:#cfd8e8;
+  }
+  .notice svg{flex:0 0 auto; margin-top:3px}
+  .notice b{color:var(--ink)}
+
+  /* ---------- sections ---------- */
+  section{padding:58px 0}
+  section + section{border-top:1px solid rgba(45,56,80,.6)}
+  h2{font-size:clamp(28px,4.6vw,38px); margin-bottom:8px}
+  .lede{color:var(--mute); margin:0 0 30px}
+
+  .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}
+  .card{
+    background:linear-gradient(180deg,var(--panel),#19202c);
+    border:1px solid var(--line); border-radius:14px; padding:22px;
+  }
+  .card h3{font-size:19px; margin-bottom:8px; color:var(--ink)}
+  .card p{margin:0; color:var(--mute); font-size:14.5px}
+  .card .ico{font-size:24px; line-height:1; margin-bottom:12px; display:block}
+  .arena h3{color:var(--amber)}
+  .arena.b h3{color:var(--blue)}
+  .arena.c h3{color:var(--green)}
+
+  /* ---------- weapons ---------- */
+  .scroller{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; border:1px solid var(--line)}
+  .wtable{width:100%; border-collapse:collapse; font-size:14.5px; min-width:560px}
+  .wtable th,.wtable td{padding:13px 16px; text-align:left; border-bottom:1px solid var(--line)}
+  .wtable thead th{background:var(--panel2); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); font-weight:600}
+  .wtable tbody tr{background:var(--panel)}
+  .wtable tbody tr:last-child td{border-bottom:none}
+  .wtable td:first-child{font-family:"Lilita One",sans-serif; font-size:17px; color:var(--amber)}
+
+  /* ---------- controls ---------- */
+  .keys{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+  .krow{display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:11px 15px}
+  .krow span{color:var(--mute); font-size:14.5px}
+  kbd{
+    font:600 12.5px/1 Inter,system-ui,sans-serif; color:var(--ink);
+    background:#2b3550; border:1px solid #3c4866; border-bottom-width:2px;
+    border-radius:6px; padding:6px 9px; white-space:nowrap; display:inline-block;
+  }
+
+  /* ---------- install ---------- */
+  pre{
+    margin:0; background:#0c1016; border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; overflow-x:auto;
+    font:13.5px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace; color:#d6e0f0;
+  }
+  pre .c{color:#6b7a94}
+  pre .p{color:var(--green)}
+  .steps{counter-reset:s; list-style:none; padding:0; margin:0 0 22px}
+  .steps li{counter-increment:s; position:relative; padding-left:40px; margin-bottom:12px; color:var(--mute)}
+  .steps li::before{
+    content:counter(s); position:absolute; left:0; top:-1px;
+    width:26px; height:26px; display:grid; place-items:center;
+    background:var(--panel2); border:1px solid var(--line); border-radius:50%;
+    font:600 13px Inter,system-ui,sans-serif; color:var(--amber);
+  }
+  .steps b{color:var(--ink); font-weight:600}
+
+  footer{border-top:1px solid var(--line); padding:44px 0 56px; color:var(--mute); font-size:14px; background:#0d1118}
+  footer h3{font-size:16px; color:var(--ink); margin-bottom:12px}
+  footer ul{list-style:none; padding:0; margin:0}
+  footer li{margin-bottom:7px}
+  .fgrid{display:grid; gap:32px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); margin-bottom:34px}
+  .legal{padding-top:22px; border-top:1px solid rgba(45,56,80,.6); font-size:13px}
+  .cross{width:22px; height:22px; vertical-align:-4px; opacity:.9}
+
+  @media (max-width:600px){
+    header{padding:60px 0 48px}
+    .btn{width:100%; justify-content:center}
+    section{padding:46px 0}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="tag">Python &middot; Ursina &middot; Open source</div>
+    <h1>Arena Shooter</h1>
+    <p class="sub">A 3D wave-survival first-person shooter. Three arenas, three weapons, and an endless stack of soldiers and flying drones. Hold out as long as you can.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download the game
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/abahodirov/arena-shooter">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.7-2.9 5.7-5.6 6 .5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+        View source
+      </a>
+    </div>
+    <p class="meta"><b>Free</b> &middot; MIT licensed &middot; Windows, macOS &amp; Linux &middot; Needs <b>Python 3.9+</b></p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="notice">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8fd3ff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <div><b>This is a desktop game, not a browser game.</b> Ursina is built on Panda3D, which has no WebAssembly build, so Arena Shooter cannot run in a browser tab. Download it and run it locally &mdash; setup takes about a minute.</div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>What's in it</h2>
+    <p class="lede">A complete arena shooter in a single Python file.</p>
+    <div class="grid">
+      <div class="card"><span class="ico">🌊</span><h3>Endless waves</h3><p>Each wave adds another hostile, up to twelve at once, and enemy health scales as you climb. Clearing a wave pays a 250 &times; wave bonus and restocks your ammo.</p></div>
+      <div class="card"><span class="ico">🎯</span><h3>Headshots matter</h3><p>Headshots deal double damage and pay an extra 50 points. The end-of-run scoreboard tracks your kills, headshots and shot accuracy.</p></div>
+      <div class="card"><span class="ico">⚙️</span><h3>Tuned to taste</h3><p>Mouse sensitivity, field of view, volume, fullscreen and three difficulty levels &mdash; all saved between sessions, along with a personal best per arena.</p></div>
+      <div class="card"><span class="ico">🪙</span><h3>Pickups</h3><p>Fallen enemies drop coins worth 50 points and ammo crates worth 40 rounds for the Repeater. They vanish after 25 seconds, so go get them.</p></div>
+      <div class="card"><span class="ico">🤖</span><h3>Two enemy types</h3><p>Ground soldiers shoot from range and are worth 100 points each. Flying drones close in from above for 75.</p></div>
+      <div class="card"><span class="ico">📦</span><h3>No build step</h3><p>One dependency, one script. <code>python fps_game.py</code> installs the engine itself on first run if it is missing.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="arenas">
+  <div class="wrap">
+    <h2>Three arenas</h2>
+    <p class="lede">Each one changes how you have to fight.</p>
+    <div class="grid">
+      <div class="card arena"><h3>Colosseum</h3><p>A walled sand arena. Columns and stone blocks give you cover and the statue marks the centre. The forgiving one &mdash; nowhere to fall, plenty to hide behind.</p></div>
+      <div class="card arena b"><h3>Sky Garden</h3><p>Floating grass islands above the clouds. Swarms of drones, no walls, and a long drop off every edge. Watch your footing more than your aim.</p></div>
+      <div class="card arena c"><h3>Downtown</h3><p>A city block with a ring road and a fountain plaza. Long sight lines down the streets reward the Blaster and punish standing still.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="weapons">
+  <div class="wrap">
+    <h2>Three weapons</h2>
+    <p class="lede">Switch with <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>, the mouse wheel, or <kbd>Q</kbd> for your last one.</p>
+    <div class="scroller">
+      <table class="wtable">
+        <thead><tr><th>Weapon</th><th>Fire</th><th>Damage</th><th>Magazine</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td>Blaster</td><td>Semi-auto</td><td>40</td><td>12, unlimited reserve</td><td>Precise shots at range &mdash; the tightest spread in the game</td></tr>
+          <tr><td>Repeater</td><td>Full auto</td><td>21</td><td>40 + 160 reserve</td><td>Holding off a crowd, drones, close quarters</td></tr>
+          <tr><td>Sword</td><td>Melee</td><td>120</td><td>&mdash;</td><td>One-swing kills when something gets too close</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="controls">
+  <div class="wrap">
+    <h2>Controls</h2>
+    <p class="lede">Standard FPS layout &mdash; nothing to learn.</p>
+    <div class="keys">
+      <div class="krow"><span>Move</span><div><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></div></div>
+      <div class="krow"><span>Jump</span><kbd>Space</kbd></div>
+      <div class="krow"><span>Look</span><kbd>Mouse</kbd></div>
+      <div class="krow"><span>Fire / swing</span><kbd>Left mouse</kbd></div>
+      <div class="krow"><span>Reload</span><kbd>R</kbd></div>
+      <div class="krow"><span>Select weapon</span><div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></div></div>
+      <div class="krow"><span>Last weapon</span><kbd>Q</kbd></div>
+      <div class="krow"><span>Cycle weapons</span><kbd>Wheel</kbd></div>
+      <div class="krow"><span>Pause / back</span><kbd>Esc</kbd></div>
+      <div class="krow"><span>Restart after dying</span><kbd>Enter</kbd></div>
+    </div>
+  </div>
+</section>
+
+<section id="play">
+  <div class="wrap">
+    <h2>How to play it</h2>
+    <p class="lede">About a minute from here to the main menu.</p>
+    <ol class="steps">
+      <li>Install <b>Python 3.9 or newer</b> from <a href="https://www.python.org/downloads/">python.org</a> if you do not have it. On Windows, tick <b>&ldquo;Add Python to PATH&rdquo;</b> in the installer.</li>
+      <li>Download the game and <b>unzip it</b>, or clone the repository with the commands below.</li>
+      <li>Open a terminal in that folder and run the commands. Keep the <b>assets</b> folder next to <code>fps_game.py</code>.</li>
+    </ol>
+<pre><span class="c"># clone and launch</span>
+<span class="p">git</span> clone https://github.com/abahodirov/arena-shooter.git
+<span class="p">cd</span> arena-shooter
+<span class="p">pip</span> install -r requirements.txt
+<span class="p">python</span> fps_game.py</pre>
+    <p class="meta" style="margin-top:16px">The first launch downloads the Ursina engine and takes a minute; after that it starts straight away. You will need a GPU that supports OpenGL 3.2 or newer &mdash; anything from the last decade will do.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3><img src="img/crosshair.png" class="cross" alt=""> Arena Shooter</h3>
+        <p style="margin:0">A 3D wave-survival FPS written in Python. The code is released under the MIT License.</p>
+      </div>
+      <div>
+        <h3>Links</h3>
+        <ul>
+          <li><a href="https://github.com/abahodirov/arena-shooter">Source on GitHub</a></li>
+          <li><a href="https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip">Download ZIP</a></li>
+          <li><a href="https://github.com/abahodirov/arena-shooter/blob/main/LICENSE">License</a></li>
+          <li><a href="https://github.com/abahodirov/arena-shooter/issues">Report a problem</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Built with</h3>
+        <ul>
+          <li><a href="https://www.ursinaengine.org/">Ursina</a> on <a href="https://www.panda3d.org/">Panda3D</a></li>
+          <li>Art &amp; audio by <a href="https://www.kenney.nl">Kenney</a> (CC0)</li>
+          <li>Font: Lilita One by Juan Montoreano (OFL 1.1)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      Every model, sprite, sound and font in this game is a free third-party asset and keeps its own license &mdash; see
+      <a href="https://github.com/abahodirov/arena-shooter/blob/main/assets/CREDITS.txt">assets/CREDITS.txt</a> for the full attribution.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

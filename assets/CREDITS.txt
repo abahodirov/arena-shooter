@@ -1,0 +1,30 @@
+ARENA SHOOTER - asset credits
+=============================
+
+All game art and audio in this folder are third-party free assets. Nothing here
+was drawn or recorded for this game.
+
+3D models, sprites, UI art and sounds - Kenney (www.kenney.nl)
+License: Creative Commons Zero (CC0 1.0) - http://creativecommons.org/publicdomain/zero/1.0/
+
+  fps/         Starter Kit FPS            https://github.com/KenneyNL/Starter-Kit-FPS
+               blasters, flying enemy, platforms, walls, grass, clouds
+  sprites/     Starter Kit FPS            crosshairs, hit marker, muzzle burst, skybox, shadow
+               Starter Kit 3D Platformer  particle
+  arena/       Mini Arena                 https://github.com/KenneyNL/Starter-Kit-Basic-Scene
+               soldier character, walls, columns, statue, blocks, trees, sword
+               (soldier-fixed.glb is character-soldier.glb with its two skins merged
+                and unused animations removed so the Panda3D glTF loader can read it)
+  city/        Starter Kit City Builder   https://github.com/KenneyNL/Starter-Kit-City-Builder
+               buildings, roads, pavement, trees, fountain, city ambience sound
+  platformer/  Starter Kit 3D Platformer  https://github.com/KenneyNL/Starter-Kit-3D-Platformer
+               coin, coin/fall sounds
+  ui/          UI Pack                    https://github.com/ereborstudios/kenney-ui-pack
+               buttons, checkbox
+  sounds/      Starter Kit FPS, Starter Kit 3D Platformer, Starter Kit City Builder,
+               Interface Sounds (ui_*.wav) https://github.com/Calinou/kenney-interface-sounds
+
+Font - Lilita One by Juan Montoreano
+License: SIL Open Font License 1.1 (see fonts/OFL-license.txt)
+
+Engine - Ursina (MIT) on Panda3D (BSD)

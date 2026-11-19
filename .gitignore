@@ -1,0 +1,24 @@
+# Player-local save file (settings + high scores) - generated on first run
+settings.json
+
+# Build artifacts / local archives
+*.zip
+
+# Godot / asset-pipeline leftovers
+*.import~*.TMP
+*.import
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Editors & OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
