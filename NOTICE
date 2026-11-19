@@ -1,0 +1,26 @@
+Arena Shooter - third-party notices
+===================================
+
+The MIT License in the LICENSE file covers the game code (fps_game.py).
+Everything in the "assets" folder is third-party work that keeps its own
+license. Nothing in that folder was drawn or recorded for this game.
+
+3D models, sprites, UI art and sounds
+  Kenney - https://www.kenney.nl
+  Creative Commons Zero 1.0 Universal (CC0)
+  http://creativecommons.org/publicdomain/zero/1.0/
+
+  Taken from the Starter Kit FPS, Mini Arena / Starter Kit Basic Scene,
+  Starter Kit City Builder, Starter Kit 3D Platformer, UI Pack and
+  Interface Sounds packs.
+
+Font "Lilita One"
+  Juan Montoreano
+  SIL Open Font License 1.1
+  Full text in assets/fonts/OFL-license.txt
+
+Engine
+  Ursina - https://www.ursinaengine.org/ (MIT License)
+  Panda3D - https://www.panda3d.org/ (Modified BSD License)
+
+See assets/CREDITS.txt for the full per-folder attribution.

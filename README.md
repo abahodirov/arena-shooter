@@ -70,4 +70,4 @@ All art and audio are free third-party assets — nothing in `assets/` was drawn
 
 ## License
 
-The game code is released under the [MIT License](LICENSE). The bundled assets keep their own licenses as listed above.
+The game code is released under the [MIT License](LICENSE). The bundled assets keep their own licenses — see [NOTICE](NOTICE) for the third-party notices and [assets/CREDITS.txt](assets/CREDITS.txt) for the full per-folder attribution.
