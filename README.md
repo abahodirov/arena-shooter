@@ -4,7 +4,7 @@
 
 ---
 
-**A 3D wave-survival first-person shooter you run on your own machine.**
+**A 3D wave-survival first-person shooter you run on your own machine.**<br>
 **Hold the Colosseum, the Sky Garden or Downtown — every wave sends one more.**
 
 [![Download](https://img.shields.io/badge/%E2%96%B6%20DOWNLOAD-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip)&nbsp;[![Game page](https://img.shields.io/badge/GAME%20PAGE-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter)
