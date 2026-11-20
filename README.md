@@ -1,10 +1,23 @@
-# Arena Shooter
+<div align="center">
 
-A 3D wave-survival first-person shooter written in Python with the [Ursina](https://www.ursinaengine.org/) engine. Three arenas, three weapons, endless waves of soldiers and flying drones — survive as long as you can and push your high score.
-
-**[▶ Game page & download](https://abahodirov.github.io/arena-shooter)**
+# 🎯 Arena Shooter
 
 ---
+
+**A 3D wave-survival first-person shooter you run on your own machine.**
+**Hold the Colosseum, the Sky Garden or Downtown — every wave sends one more.**
+
+[![Download](https://img.shields.io/badge/%E2%96%B6%20DOWNLOAD-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip)&nbsp;[![Game page](https://img.shields.io/badge/GAME%20PAGE-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter)
+
+![license MIT](https://img.shields.io/badge/license-MIT-blue)
+![python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
+![engine Ursina](https://img.shields.io/badge/engine-Ursina-2ea44f)
+![dependencies 1](https://img.shields.io/badge/dependencies-1-lightgrey)
+![OpenGL 3D](https://img.shields.io/badge/OpenGL-3D-ff8c00)
+
+![Arena Shooter - wave 1 in the Colosseum arena](docs/img/screenshot.png)
+
+</div>
 
 ## Features
 
