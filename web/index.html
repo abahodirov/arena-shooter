@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena Shooter</title>
+<meta name="description" content="A 3D wave-survival first-person shooter you can play in your browser. Three arenas, three weapons, endless waves.">
+<link rel="icon" href="img/crosshair.png">
+<style>
+  @font-face { font-family: 'Lilita'; src: url('assets/fonts/lilita_one_regular.ttf') format('truetype'); font-display: block; }
+  html, body { margin: 0; height: 100%; background: #0b0f18; overflow: hidden; }
+  #view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
+  #ui { position: fixed; inset: 0; pointer-events: none; color: #fff; user-select: none; -webkit-user-select: none;
+        font-family: 'Lilita', Impact, 'Arial Black', sans-serif; }
+  /* One UI unit = the height of a 16:9 stage that fits the window (Ursina's UI space). */
+  #stage { --u: min(100vh, 56.25vw); position: absolute; left: 50%; top: 50%;
+           width: calc(var(--u) * 16 / 9); height: var(--u); transform: translate(-50%, -50%); }
+  .layer { position: absolute; inset: 0; }
+  .abs { position: absolute; white-space: pre; }
+  .txt { line-height: 1.05; letter-spacing: .01em; }
+  .btn { position: absolute; pointer-events: auto; cursor: pointer; display: flex; align-items: center;
+         justify-content: center; background-size: 100% 100%; background-repeat: no-repeat;
+         font-size: calc(var(--u) * .03); color: #fff; white-space: nowrap; box-sizing: border-box; }
+  .btn:active { filter: brightness(.85); }
+  .btn.dark { color: #1d2433; }
+  .check { position: absolute; pointer-events: auto; cursor: pointer; background-size: 100% 100%; }
+  input[type=range] { position: absolute; pointer-events: auto; margin: 0; -webkit-appearance: none; appearance: none;
+         background: transparent; cursor: pointer; }
+  input[type=range]::-webkit-slider-runnable-track { height: calc(var(--u) * .012); background: rgba(255,255,255,.22); border-radius: 99px; }
+  input[type=range]::-moz-range-track { height: calc(var(--u) * .012); background: rgba(255,255,255,.22); border-radius: 99px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: calc(var(--u) * .026); height: calc(var(--u) * .026);
+         margin-top: calc(var(--u) * -.007); border-radius: 50%; background: #ffcc00; border: 0; }
+  input[type=range]::-moz-range-thumb { width: calc(var(--u) * .026); height: calc(var(--u) * .026); border-radius: 50%; background: #ffcc00; border: 0; }
+  .shade { position: fixed; inset: 0; }
+  .hit { background: #fff; -webkit-mask: url('assets/sprites/hit.png') 100% 0 / 200% 200% no-repeat;
+         mask: url('assets/sprites/hit.png') 100% 0 / 200% 200% no-repeat; }
+  .dot { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); }
+  a.link { color: #ffcc00; pointer-events: auto; }
+  #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+             gap: 18px; background: #1d2433; color: #fff; font: 600 15px/1.4 system-ui, sans-serif; z-index: 5; text-align: center; padding: 0 16px; }
+  #loading h1 { font: 400 44px/1 'Lilita', Impact, sans-serif; margin: 0; letter-spacing: .02em; }
+  #loading .bar { width: min(320px, 80vw); height: 10px; border-radius: 99px; background: rgba(255,255,255,.15); overflow: hidden; }
+  #loading .bar i { display: block; height: 100%; width: 0; background: #ffcc00; transition: width .15s; }
+  #loading p { margin: 0; color: #c9d2e3; max-width: 34em; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<canvas id="view" tabindex="0"></canvas>
+<div id="ui"><div id="stage"></div></div>
+<div id="loading">
+  <h1>ARENA SHOOTER</h1>
+  <div class="bar"><i id="load-bar"></i></div>
+  <p id="load-text">Loading models and sounds...</p>
+</div>
+<script type="module" src="js/game.js"></script>
+</body>
+</html>

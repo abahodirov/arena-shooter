@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arena Shooter</title>
-<meta name="description" content="A 3D wave-survival first-person shooter built in Python with the Ursina engine. Three arenas, three weapons, endless waves.">
+<title>Arena Shooter - Download</title>
+<meta name="description" content="A 3D wave-survival first-person shooter. Play it in your browser or download it for Windows. Three arenas, three weapons, endless waves.">
 <meta property="og:title" content="Arena Shooter">
-<meta property="og:description" content="A 3D wave-survival FPS built in Python with the Ursina engine. Free and open source.">
+<meta property="og:description" content="A 3D wave-survival FPS. Play in your browser or download for Windows. Free and open source.">
 <meta property="og:type" content="website">
 <link rel="icon" href="img/crosshair.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,11 +163,15 @@
 
 <header>
   <div class="wrap">
-    <div class="tag">Python &middot; Ursina &middot; Open source</div>
+    <div class="tag">Browser &middot; Windows &middot; Open source</div>
     <h1>Arena Shooter</h1>
     <p class="sub">A 3D wave-survival first-person shooter. Three arenas, three weapons, and an endless stack of soldiers and flying drones. Hold out as long as you can.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe">
+      <a class="btn btn-primary" href="./">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>
+        Play in your browser
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download for Windows (.exe)
       </a>
@@ -176,7 +180,7 @@
         View source
       </a>
     </div>
-    <p class="meta"><b>Free</b> &middot; MIT licensed &middot; Windows: no install needed &middot; macOS &amp; Linux: run from source with <b>Python 3.9+</b></p>
+    <p class="meta"><b>Free</b> &middot; MIT licensed &middot; Browser: Chrome, Edge or Firefox with a keyboard and mouse &middot; Windows: no install needed</p>
     <figure class="shot">
       <img src="img/screenshot.png" width="1280" height="720" alt="Wave 1 beginning in the Colosseum arena: columns and stone blocks across the sand, soldiers along the far wall, and the HUD showing health, radar and Repeater ammo.">
     </figure>
@@ -186,14 +190,14 @@
 <div class="wrap">
   <div class="notice">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8fd3ff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-    <div><b>This is a desktop game, not a browser game.</b> Ursina is built on Panda3D, which has no WebAssembly build, so Arena Shooter cannot run in a browser tab. Download it and run it locally &mdash; setup takes about a minute.</div>
+    <div><b>Two builds, one game.</b> The <a href="./">browser version</a> is a JavaScript (three.js) port of the desktop game, with the same maps, weapons, enemies and numbers. The Windows .exe and the Python source run the original Ursina version.</div>
   </div>
 </div>
 
 <section id="features">
   <div class="wrap">
     <h2>What's in it</h2>
-    <p class="lede">A complete arena shooter in a single Python file.</p>
+    <p class="lede">A complete arena shooter: one Python file on the desktop, a small three.js app in the browser.</p>
     <div class="grid">
       <div class="card"><span class="ico">🌊</span><h3>Endless waves</h3><p>Each wave adds another hostile, up to twelve at once, and enemy health scales as you climb. Clearing a wave pays a 250 &times; wave bonus and restocks your ammo.</p></div>
       <div class="card"><span class="ico">🎯</span><h3>Headshots matter</h3><p>Headshots deal double damage and pay an extra 50 points. The end-of-run scoreboard tracks your kills, headshots and shot accuracy.</p></div>
@@ -246,6 +250,9 @@
       <div class="krow"><span>Reload</span><kbd>R</kbd></div>
       <div class="krow"><span>Select weapon</span><div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></div></div>
       <div class="krow"><span>Last weapon</span><kbd>Q</kbd></div>
+      <div class="krow"><span>Aim down sights</span><kbd>Right mouse</kbd></div>
+      <div class="krow"><span>Sprint / crouch</span><div><kbd>Shift</kbd> <kbd>C</kbd></div></div>
+      <div class="krow"><span>Scoreboard</span><kbd>Tab</kbd></div>
       <div class="krow"><span>Cycle weapons</span><kbd>Wheel</kbd></div>
       <div class="krow"><span>Pause / back</span><kbd>Esc</kbd></div>
       <div class="krow"><span>Restart after dying</span><kbd>Enter</kbd></div>
@@ -256,7 +263,13 @@
 <section id="play">
   <div class="wrap">
     <h2>How to play it</h2>
-    <p class="lede">About a minute from here to the main menu.</p>
+    <p class="lede">Pick whichever suits you. All three versions play the same.</p>
+    <h3>In your browser</h3>
+    <ol class="steps">
+      <li><a href="./">Open the game</a>. It loads in a few seconds; nothing to install.</li>
+      <li>Click <b>PLAY</b>, choose a map and click <b>START</b>. The game captures the mouse so you can aim; press <b>Esc</b> to get it back.</li>
+      <li>Crouch is <b>C</b> in the browser (Ctrl+W would close the tab). Settings and best scores are kept in your browser.</li>
+    </ol>
     <h3>Windows</h3>
     <ol class="steps">
       <li><a href="https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe">Download <b>ArenaShooter.exe</b></a> (about 90&nbsp;MB) and double-click it. No Python or install needed.</li>
@@ -283,7 +296,7 @@
     <div class="fgrid">
       <div>
         <h3><img src="img/crosshair.png" class="cross" alt=""> Arena Shooter</h3>
-        <p style="margin:0">A 3D wave-survival FPS written in Python. The code is released under the MIT License.</p>
+        <p style="margin:0">A 3D wave-survival FPS: a Python/Ursina desktop game and a JavaScript/three.js browser port. The code is released under the MIT License.</p>
       </div>
       <div>
         <h3>Links</h3>
@@ -297,7 +310,8 @@
       <div>
         <h3>Built with</h3>
         <ul>
-          <li><a href="https://www.ursinaengine.org/">Ursina</a> on <a href="https://www.panda3d.org/">Panda3D</a></li>
+          <li><a href="https://threejs.org/">three.js</a> (browser version)</li>
+          <li><a href="https://www.ursinaengine.org/">Ursina</a> on <a href="https://www.panda3d.org/">Panda3D</a> (desktop)</li>
           <li>Art &amp; audio by <a href="https://www.kenney.nl">Kenney</a> (CC0)</li>
           <li>Font: Lilita One by Juan Montoreano (OFL 1.1)</li>
         </ul>

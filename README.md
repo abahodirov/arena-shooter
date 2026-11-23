@@ -4,16 +4,16 @@
 
 ---
 
-**A 3D wave-survival first-person shooter you run on your own machine.**<br>
+**A 3D wave-survival first-person shooter. Play it in your browser or on Windows.**<br>
 **Hold the Colosseum, the Sky Garden or Downtown — every wave sends one more.**
 
-[![Download for Windows](https://img.shields.io/badge/%E2%96%B6%20DOWNLOAD%20FOR%20WINDOWS-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe)&nbsp;[![Game page](https://img.shields.io/badge/GAME%20PAGE-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter)
+[![Play in browser](https://img.shields.io/badge/%E2%96%B6%20PLAY%20IN%20BROWSER-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter/)&nbsp;[![Download for Windows](https://img.shields.io/badge/DOWNLOAD%20FOR%20WINDOWS-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe)
 
 ![license MIT](https://img.shields.io/badge/license-MIT-blue)
 ![python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
-![engine Ursina](https://img.shields.io/badge/engine-Ursina-2ea44f)
-![dependencies 1](https://img.shields.io/badge/dependencies-1-lightgrey)
-![OpenGL 3D](https://img.shields.io/badge/OpenGL-3D-ff8c00)
+![desktop Ursina](https://img.shields.io/badge/desktop-Ursina-2ea44f)
+![browser three.js](https://img.shields.io/badge/browser-three.js-000000)
+![OpenGL / WebGL](https://img.shields.io/badge/OpenGL%20%2F%20WebGL-3D-ff8c00)
 
 ![Arena Shooter - wave 1 in the Colosseum arena](docs/img/screenshot.png)
 
@@ -29,6 +29,27 @@
 - **Pickups** — coins for score and ammo crates for the Repeater drop from fallen enemies
 - **Full settings menu** — mouse sensitivity, FOV, volume and fullscreen, saved between sessions along with a per-map personal best
 - **End-of-run scoreboard** — wave reached, kills, headshots and shot accuracy
+
+## Versions
+
+| Version | How to play | Code |
+| --- | --- | --- |
+| **Browser** | Open **[abahodirov.github.io/arena-shooter](https://abahodirov.github.io/arena-shooter/)**: nothing to install. Chrome, Edge or Firefox with a keyboard and mouse. | [`web/`](web) (JavaScript, three.js) |
+| **Windows** | Download **[ArenaShooter.exe](https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe)** and double-click it. | [`fps_game.py`](fps_game.py) packaged with PyInstaller |
+| **Source** | `python fps_game.py` on Windows, macOS or Linux. | [`fps_game.py`](fps_game.py) (Python, Ursina) |
+
+The browser version is a port of the desktop game: same maps (laid out with the same random seeds), weapons, enemies, waves, scoring and menus. Differences: crouch is `C` (Ctrl+W would close the tab; `C` works on desktop too), settings and best scores live in the browser instead of `settings.json`, and there is no Quit button. Each release on the [Releases page](https://github.com/abahodirov/arena-shooter/releases) carries the Windows exe and a zip of the browser version.
+
+## Play in the browser
+
+Open **[https://abahodirov.github.io/arena-shooter/](https://abahodirov.github.io/arena-shooter/)**, click **PLAY**, pick a map and click **START**. The game captures the mouse for aiming; **Esc** releases it and pauses. To run the browser version locally:
+
+```bash
+python tools/build_web.py              # assembles web/ + assets/ into _site/
+python -m http.server -d _site 8000    # then open http://localhost:8000
+```
+
+Every push to `main` redeploys it through [.github/workflows/pages.yml](.github/workflows/pages.yml).
 
 ## Play on Windows (no install)
 
@@ -50,8 +71,6 @@ python fps_game.py
 
 `fps_game.py` installs Ursina itself on first run if it is missing, so `python fps_game.py` alone also works. Keep the `assets` folder next to the script — the game exits with an error if it is missing.
 
-> **Note:** this is a desktop game. Ursina runs on [Panda3D](https://www.panda3d.org/), which has no WebAssembly build, so the game cannot be played in a browser — it has to be downloaded and run locally.
-
 ## Building the .exe yourself
 
 ```bash
@@ -72,6 +91,10 @@ The exe is written to `dist/ArenaShooter.exe`.
 | Reload | `R` |
 | Select weapon | `1` `2` `3` |
 | Previous weapon | `Q` |
+| Aim down sights | Right mouse |
+| Sprint | `Shift` |
+| Crouch | `C` (or `Left Ctrl` on desktop) |
+| Scoreboard | `Tab` (hold) |
 | Cycle weapons | Mouse wheel |
 | Pause / back | `Esc` |
 | Restart after dying | `Enter` |
@@ -79,10 +102,19 @@ The exe is written to `dist/ArenaShooter.exe`.
 ## Project layout
 
 ```
-fps_game.py        the whole game - engine setup, maps, weapons, enemies, HUD and menus
+fps_game.py        the desktop game - engine setup, maps, weapons, enemies, HUD and menus
 requirements.txt   the single dependency (ursina)
-assets/            models, sprites, sounds, UI art and the font
-docs/              the GitHub Pages game page
+assets/            models, sprites, sounds, UI art and the font (shared by both versions)
+web/               the browser version
+  index.html       page, HUD/menu styles
+  js/game.js       player, weapons, enemies, waves, HUD, menus (port of fps_game.py)
+  js/maps.js       the three arenas
+  js/engine.js     colliders + raycasts, tweens, sound, asset loading
+  js/rng.js        Python-compatible random numbers, so maps match the desktop layout
+  download.html    the download page
+  vendor/          three.js r170 (MIT)
+tools/build_web.py assembles the site for GitHub Pages
+docs/img/          screenshots
 settings.json      created on first run: your settings and high scores (not tracked)
 ```
 
@@ -92,7 +124,7 @@ All art and audio are free third-party assets — nothing in `assets/` was drawn
 
 - **3D models, sprites, UI art and sounds** — [Kenney](https://www.kenney.nl) ([CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/))
 - **Font** — Lilita One by Juan Montoreano ([SIL Open Font License 1.1](assets/fonts/OFL-license.txt))
-- **Engine** — [Ursina](https://www.ursinaengine.org/) (MIT) on [Panda3D](https://www.panda3d.org/) (BSD)
+- **Engine** — desktop: [Ursina](https://www.ursinaengine.org/) (MIT) on [Panda3D](https://www.panda3d.org/) (BSD); browser: [three.js](https://threejs.org/) (MIT, bundled in `web/vendor/`)
 
 ## License
 

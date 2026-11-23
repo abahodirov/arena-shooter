@@ -25,3 +25,4 @@ desktop.ini
 build/
 dist/
 *.spec
+_site/

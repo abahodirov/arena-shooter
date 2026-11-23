@@ -65,6 +65,10 @@ DIFFICULTY = {            # enemy accuracy, damage per hit, health multiplier
 }
 WALK_SPEED, SPRINT_SPEED, CROUCH_SPEED = 6.5, 10, 3.2
 EYE_HEIGHT, CROUCH_HEIGHT = 2.0, 1.25
+def crouch_held():
+    return bool(held_keys['left control'] or held_keys['c'])
+
+
 BOT_NAMES = ['Viper', 'Rook', 'Ghost', 'Brick', 'Mako', 'Flint', 'Onyx', 'Sable',
              'Kite', 'Rust', 'Dagger', 'Moss', 'Cobalt', 'Ember', 'Wren', 'Talon']
 
@@ -493,7 +497,7 @@ class Enemy(Entity):
         chance = self.accuracy * clamp(1.3 - dist / 30, 0.3, 1)
         if held_keys['shift'] and game.moving:
             chance *= 0.75
-        if held_keys['left control']:
+        if crouch_held():
             chance *= 0.8
         col = color.hex('#ff9d5c')
         if random.random() < chance:
@@ -836,7 +840,7 @@ class Game:
         player.camera_pivot.rotation_x -= w['kick']
         self.kick += w['kick']
 
-        steady = (0.45 if held_keys['right mouse'] else 1) * (0.7 if held_keys['left control'] else 1)
+        steady = (0.45 if held_keys['right mouse'] else 1) * (0.7 if crouch_held() else 1)
         spread = (w['spread'] + min(self.spray, 8) * w['bloom']) * steady * (1.6 if self.moving else 1)
         self.spray += 1
         direction = (camera.forward + camera.right * random.uniform(-spread, spread)
@@ -1165,7 +1169,7 @@ title(help_menu, 'HOW TO PLAY')
 panel(help_menu, 0.0, -0.02, 1.0, 0.56)
 Text(parent=help_menu, position=(-0.44, 0.22), scale=1.1, line_height=1.42,
      text='W A S D\nMouse\nLeft mouse\nRight mouse\nR\n1 / 2 / 3  or  wheel\nQ\nSpace\n'
-          'Shift\nLeft Ctrl\nTab\nEsc')
+          'Shift\nC  or  Left Ctrl\nTab\nEsc')
 Text(parent=help_menu, position=(-0.12, 0.22), scale=1.1, line_height=1.42,
      color=color.light_gray,
      text='Move\nAim\nShoot (hold with the Repeater)\nAim down sights - steadier shots\n'
@@ -1250,7 +1254,7 @@ def update():
     player.camera_pivot.rotation_x += recover
     game.kick -= recover
 
-    crouching = held_keys['left control']
+    crouching = crouch_held()
     aiming = held_keys['right mouse'] and not w.get('melee')
     game.moving = bool(held_keys['w'] or held_keys['a'] or held_keys['s'] or held_keys['d'])
     sprinting = held_keys['shift'] and game.moving and not crouching and not aiming

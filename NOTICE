@@ -1,7 +1,8 @@
 Arena Shooter - third-party notices
 ===================================
 
-The MIT License in the LICENSE file covers the game code (fps_game.py).
+The MIT License in the LICENSE file covers the game code (fps_game.py, web/js/,
+web/index.html, web/download.html and tools/).
 Everything in the "assets" folder is third-party work that keeps its own
 license. Nothing in that folder was drawn or recorded for this game.
 
@@ -22,5 +23,7 @@ Font "Lilita One"
 Engine
   Ursina - https://www.ursinaengine.org/ (MIT License)
   Panda3D - https://www.panda3d.org/ (Modified BSD License)
+  three.js r170 - https://threejs.org/ (MIT License)
+    Bundled in web/vendor/; license text in web/vendor/THREE-LICENSE.txt
 
 See assets/CREDITS.txt for the full per-folder attribution.
