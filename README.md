@@ -7,7 +7,7 @@
 **A 3D wave-survival first-person shooter you run on your own machine.**<br>
 **Hold the Colosseum, the Sky Garden or Downtown — every wave sends one more.**
 
-[![Download](https://img.shields.io/badge/%E2%96%B6%20DOWNLOAD-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip)&nbsp;[![Game page](https://img.shields.io/badge/GAME%20PAGE-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter)
+[![Download for Windows](https://img.shields.io/badge/%E2%96%B6%20DOWNLOAD%20FOR%20WINDOWS-24292f?style=for-the-badge)](https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe)&nbsp;[![Game page](https://img.shields.io/badge/GAME%20PAGE-2ea44f?style=for-the-badge)](https://abahodirov.github.io/arena-shooter)
 
 ![license MIT](https://img.shields.io/badge/license-MIT-blue)
 ![python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
@@ -30,7 +30,11 @@
 - **Full settings menu** — mouse sensitivity, FOV, volume and fullscreen, saved between sessions along with a per-map personal best
 - **End-of-run scoreboard** — wave reached, kills, headshots and shot accuracy
 
-## Requirements
+## Play on Windows (no install)
+
+Download **[ArenaShooter.exe](https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe)** from the [latest release](https://github.com/abahodirov/arena-shooter/releases/latest) and double-click it. No Python needed. If SmartScreen warns about an unrecognized app, choose **More info → Run anyway** (the exe isn't code-signed). Settings and best scores are saved in `settings.json` next to the exe.
+
+## Requirements (running from source)
 
 - Python 3.9 or newer (developed on 3.11)
 - Windows, macOS or Linux with a GPU that supports OpenGL 3.2+
@@ -47,6 +51,15 @@ python fps_game.py
 `fps_game.py` installs Ursina itself on first run if it is missing, so `python fps_game.py` alone also works. Keep the `assets` folder next to the script — the game exits with an error if it is missing.
 
 > **Note:** this is a desktop game. Ursina runs on [Panda3D](https://www.panda3d.org/), which has no WebAssembly build, so the game cannot be played in a browser — it has to be downloaded and run locally.
+
+## Building the .exe yourself
+
+```bash
+pip install pyinstaller
+pyinstaller --noconfirm --onefile --windowed --name ArenaShooter --icon docs/img/crosshair.png --add-data "assets;assets" --collect-all ursina --collect-all panda3d --collect-all gltf --collect-all direct --exclude-module pygame fps_game.py
+```
+
+The exe is written to `dist/ArenaShooter.exe`.
 
 ## Controls
 

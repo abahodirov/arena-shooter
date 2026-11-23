@@ -15,17 +15,22 @@ import subprocess
 import sys
 from pathlib import Path
 
-BASE = Path(__file__).resolve().parent
+FROZEN = getattr(sys, 'frozen', False)   # running as the packaged .exe (PyInstaller)
+BASE = Path(sys._MEIPASS) if FROZEN else Path(__file__).resolve().parent
+SAVE_DIR = Path(sys.executable).resolve().parent if FROZEN else BASE
 ASSETS = BASE / 'assets'
 os.chdir(BASE)
+if FROZEN:                               # Ursina resolves sounds relative to argv[0]
+    sys.argv[0] = str(BASE / 'fps_game.py')
 if not ASSETS.is_dir():
     sys.exit('The "assets" folder is missing. Keep it in the same folder as fps_game.py.')
 
-try:
-    import ursina  # noqa: F401
-except ImportError:                      # first run: install the game engine
-    print('Installing requirements (ursina)... this takes a minute.')
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ursina'])
+if not FROZEN:
+    try:
+        import ursina  # noqa: F401
+    except ImportError:                  # first run: install the game engine
+        print('Installing requirements (ursina)... this takes a minute.')
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ursina'])
 
 import gltf
 from direct.actor.Actor import Actor
@@ -37,7 +42,7 @@ from ursina.shaders import basic_lighting_shader as LIT
 from ursina.shaders import unlit_shader
 
 # ================================================================ settings
-SETTINGS_FILE = BASE / 'settings.json'
+SETTINGS_FILE = SAVE_DIR / 'settings.json'
 settings = {'sensitivity': 40, 'volume': 0.8, 'fov': 90, 'fullscreen': False,
             'difficulty': 'NORMAL', 'map': 'colosseum', 'best': {}}
 try:

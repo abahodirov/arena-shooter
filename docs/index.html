@@ -144,6 +144,7 @@
 
   footer{border-top:1px solid var(--line); padding:44px 0 56px; color:var(--mute); font-size:14px; background:#0d1118}
   footer h3{font-size:16px; color:var(--ink); margin-bottom:12px}
+  #play h3{font-size:21px; color:var(--ink); margin:26px 0 12px}
   footer ul{list-style:none; padding:0; margin:0}
   footer li{margin-bottom:7px}
   .fgrid{display:grid; gap:32px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); margin-bottom:34px}
@@ -166,16 +167,16 @@
     <h1>Arena Shooter</h1>
     <p class="sub">A 3D wave-survival first-person shooter. Three arenas, three weapons, and an endless stack of soldiers and flying drones. Hold out as long as you can.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/abahodirov/arena-shooter/archive/refs/heads/main.zip">
+      <a class="btn btn-primary" href="https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download the game
+        Download for Windows (.exe)
       </a>
       <a class="btn btn-ghost" href="https://github.com/abahodirov/arena-shooter">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.7-2.9 5.7-5.6 6 .5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
         View source
       </a>
     </div>
-    <p class="meta"><b>Free</b> &middot; MIT licensed &middot; Windows, macOS &amp; Linux &middot; Needs <b>Python 3.9+</b></p>
+    <p class="meta"><b>Free</b> &middot; MIT licensed &middot; Windows: no install needed &middot; macOS &amp; Linux: run from source with <b>Python 3.9+</b></p>
     <figure class="shot">
       <img src="img/screenshot.png" width="1280" height="720" alt="Wave 1 beginning in the Colosseum arena: columns and stone blocks across the sand, soldiers along the far wall, and the HUD showing health, radar and Repeater ammo.">
     </figure>
@@ -256,6 +257,13 @@
   <div class="wrap">
     <h2>How to play it</h2>
     <p class="lede">About a minute from here to the main menu.</p>
+    <h3>Windows</h3>
+    <ol class="steps">
+      <li><a href="https://github.com/abahodirov/arena-shooter/releases/latest/download/ArenaShooter.exe">Download <b>ArenaShooter.exe</b></a> (about 90&nbsp;MB) and double-click it. No Python or install needed.</li>
+      <li>If Windows SmartScreen says it &ldquo;protected your PC&rdquo;, click <b>More info</b> &rarr; <b>Run anyway</b>. The exe is not code-signed, which is normal for small open-source games.</li>
+      <li>The first launch takes a few seconds while the game unpacks. Settings and best scores are saved in a <code>settings.json</code> next to the exe.</li>
+    </ol>
+    <h3>macOS, Linux, or from source</h3>
     <ol class="steps">
       <li>Install <b>Python 3.9 or newer</b> from <a href="https://www.python.org/downloads/">python.org</a> if you do not have it. On Windows, tick <b>&ldquo;Add Python to PATH&rdquo;</b> in the installer.</li>
       <li>Download the game and <b>unzip it</b>, or clone the repository with the commands below.</li>
